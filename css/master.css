@@ -1,0 +1,52 @@
+body {
+    background-color: #F9F7F3;
+    font-family: Verdana, Geneva, sans-serif;
+    margin:0;
+    /* padding:0; */
+}
+
+h1 {
+  font-size: 7vh;
+  margin:0;
+}
+
+h2 {
+  font-size: 3vh;
+}
+
+h3 {
+  font-size: 2vh;
+  margin:0;
+}
+
+#title_strip{
+  text-align: justify; text-align-last: center;
+
+
+  height: 24vh;
+  width: 100%;
+  background-color: powderblue;
+  /* margin:0; */
+}
+
+line.axis{
+
+  /* stroke-width: 3; */
+  stroke: #000;
+}
+
+.block_correct{
+  fill:#3C91E6;
+}
+
+.block_wrong{
+  fill:#B15E6C;
+}
+
+text.detail_card{
+
+  font-family: Helvetica, Geneva, sans-serif;
+  fill: #ffffff;
+  font-weight: lighter;
+
+}

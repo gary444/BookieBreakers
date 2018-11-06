@@ -1,0 +1,3 @@
+to start watch mode - npm run webpack
+
+to start server: python -m SimpleHTTPServer 8000
