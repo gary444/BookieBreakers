@@ -8,7 +8,7 @@ import DQBarGraph from './modules/DivergingQuantisedBarGraph.js';
 
 const svg_width = window.innerWidth;
 const svg_height = (window.innerHeight-4) * 0.74;
-const bar_graph_width = svg_width * 0.8;
+const bar_graph_width = svg_width * 0.9;
 const bar_graph_height = svg_height * 0.92;
 const bar_graph_x = (svg_width - bar_graph_width) / 2;
 const bar_graph_y = (svg_height - bar_graph_height) / 2;

@@ -7,7 +7,7 @@ export default class DQBarGraph {
     this.width = width;
     this.height = height;
 
-    let x_offset = 0.05;
+    let x_offset = 0;
     this.x_offset = this.width * x_offset;
     this.chartwidth = this.width * (1 - x_offset);
 
@@ -15,9 +15,9 @@ export default class DQBarGraph {
     this.y_offset = this.height * y_offset;
     this.chartheight = this.height * (1-y_offset);
 
-    this.axisGap = this.chartheight / 10;
-    this.y1pos = this.y_offset + (this.chartheight / 2.0) - (this.axisGap / 2.0);
-    this.y2pos = this.y_offset + (this.chartheight / 2.0) + (this.axisGap / 2.0);
+    this.axisGap = this.chartwidth / 20;
+    this.y1pos = this.x_offset + (this.chartwidth / 2.0) - (this.axisGap / 2.0);
+    this.y2pos = this.x_offset + (this.chartwidth / 2.0) + (this.axisGap / 2.0);
 
     // this.root.append("rect")
     //   .attr("width", this.width)
@@ -29,10 +29,8 @@ export default class DQBarGraph {
 
   render(teamArray){
 
-    this.keyWidth = this.chartwidth / teamArray.length;
+    this.keyWidth = this.chartheight / teamArray.length;
 
-    this.renderAxes(teamArray);
-    this.renderBadges(teamArray);
 
     //find most matches on one side of x axis
     let maxMatches = 0;
@@ -40,7 +38,8 @@ export default class DQBarGraph {
       if (teamArray[i].oddsCorrect.length > maxMatches) {maxMatches = teamArray[i].oddsCorrect.length;}
       if (teamArray[i].oddsWrong.length > maxMatches) {maxMatches = teamArray[i].oddsWrong.length;}
     }
-    this.blockHeight = (this.y1pos - this.y_offset) / maxMatches;
+    // this.blockHeight = (this.y1pos - this.y_offset) / maxMatches;
+    this.blockWidth = (this.y1pos - this.y_offset) / maxMatches;
 
     //matches
     let matchMarks = this.root.append("g");
@@ -54,28 +53,28 @@ export default class DQBarGraph {
         matchMarks_pos.selectAll("rect")
           .data(d.oddsCorrect)
           .enter().append("rect")
-            .attr("x", (r) => {
+            .attr("x", (r,n) => {
               if (d.name === r.HomeTeam) {
-                r.home_x = (i * this.keyWidth) + this.x_offset;
+                r.home_x = this.y1pos - (this.blockWidth * ((n+1)*1.1));
                 return r.home_x;
               }
               else if (d.name === r.AwayTeam) {
-                r.away_x = (i * this.keyWidth) + this.x_offset;
+                r.away_x = this.y1pos - (this.blockWidth * ((n+1)*1.1));
                 return r.away_x;
               }
               })
-            .attr("y", (r,n) => {
+            .attr("y", (r) => {
               if (d.name === r.HomeTeam) {
-                r.home_y =  this.y1pos - (this.blockHeight * (n+1));
+                r.home_y = (i * this.keyWidth) + this.y_offset;
                 return r.home_y;
               }
               else if (d.name === r.AwayTeam) {
-                r.away_y =  this.y1pos - (this.blockHeight * (n+1));
+                r.away_y = (i * this.keyWidth) + this.y_offset;
                 return r.away_y;
               }
             })
-            .attr("width", this.keyWidth)
-            .attr("height", this.blockHeight)
+            .attr("width", this.blockWidth)
+            .attr("height", this.keyWidth * 0.95)
             .on("mouseover", interactions.showMatchDetail)
             .on("mouseout", interactions.hideMatchDetail)
             .classed("block_correct", true);
@@ -85,28 +84,28 @@ export default class DQBarGraph {
         matchMarks_neg.selectAll("rect")
           .data(d.oddsWrong)
           .enter().append("rect")
-            .attr("x", (r) => {
+            .attr("x", (r,n) => {
               if (d.name === r.HomeTeam) {
-                r.home_x = (i * this.keyWidth) + this.x_offset;
+                r.home_x = this.y2pos + (this.blockWidth * (n*1.1));
                 return r.home_x;
               }
               else if (d.name === r.AwayTeam) {
-                r.away_x = (i * this.keyWidth) + this.x_offset;
+                r.away_x = this.y2pos + (this.blockWidth * (n*1.1));
                 return r.away_x;
               }
               })
-            .attr("y", (r,n) => {
+            .attr("y", (r) => {
               if (d.name === r.HomeTeam) {
-                r.home_y =  this.y2pos + (this.blockHeight * (n));
+                r.home_y = (i * this.keyWidth) + this.y_offset;
                 return r.home_y;
               }
               else if (d.name === r.AwayTeam) {
-                r.away_y =  this.y2pos + (this.blockHeight * (n));
+                r.away_y = (i * this.keyWidth) + this.y_offset;
                 return r.away_y;
               }
             })
-            .attr("width", this.keyWidth)
-            .attr("height", this.blockHeight)
+            .attr("width", this.blockWidth)
+            .attr("height", this.keyWidth * 0.95)
             .on("mouseover", interactions.showMatchDetail)
             .on("mouseout", interactions.hideMatchDetail)
             .classed("block_wrong", true);
@@ -114,6 +113,8 @@ export default class DQBarGraph {
       })
 
 
+      this.renderAxes(teamArray);
+      this.renderBadges(teamArray);
 
   }
 
@@ -220,45 +221,22 @@ export default class DQBarGraph {
   renderAxes(teamArray) {
 
     let axis_width = 1;
-    //y axis
+    //y axis1
     this.root.append("line")
-      .attr("x1", this.x_offset - axis_width)
+      .attr("x1", this.y1pos - axis_width)
       .attr("y1", this.y_offset)
-      .attr("x2", this.x_offset - axis_width)
+      .attr("x2", this.y1pos - axis_width)
       .attr("y2", this.y_offset + this.chartheight)
       .style("stroke-width", axis_width)
       .classed("axis", true);
 
-      //x axes
     this.root.append("line")
-      .attr("x1", this.x_offset)
-      .attr("y1", this.y1pos)
-      .attr("x2", this.x_offset + this.chartwidth)
-      .attr("y2", this.y1pos)
+      .attr("x1", this.y2pos - axis_width)
+      .attr("y1", this.y_offset)
+      .attr("x2", this.y2pos - axis_width)
+      .attr("y2", this.y_offset + this.chartheight)
       .style("stroke-width", axis_width)
       .classed("axis", true);
-
-    this.root.append("line")
-      .attr("x1", this.x_offset)
-      .attr("y1", this.y2pos - axis_width)
-      .attr("x2", this.x_offset + this.chartwidth)
-      .attr("y2", this.y2pos - axis_width)
-      .style("stroke-width", axis_width)
-      .classed("axis", true);
-
-
-    //labels
-    // let x_labels = this.root.append("g");
-    // x_labels.selectAll("text")
-    //   .data(teamArray)
-    //   .enter().append("text")
-    //     .classed("chart_label", true)
-    //     .attr("x", (d,i) => {
-    //       return this.x_offset + (this.keyWidth * i);
-    //     } )
-    //     .attr("y", this.y_offset + (this.chartheight / 2))
-    //     .style("font-size", this.chartheight / 50)
-    //     .text((d) => {return d.label;})
   }
 
   renderBadges(teamArray){
@@ -271,11 +249,15 @@ export default class DQBarGraph {
         .attr("xlink:href", (d) => {
           return "./images/" + d.label + ".png"
         })
-        .attr("x", (d,i) => {
-          return this.x_offset + (this.keyWidth * i) + (this.keyWidth * 0.1);
+        .attr("x", this.y1pos  + (this.axisGap * 0.1))
+        // .attr("x", (d,i) => {
+        //   return this.x_offset + (this.keyWidth * i) + (this.keyWidth * 0.1);
+        // })
+        // .attr("y", this.y1pos  + (this.axisGap * 0.1))
+        .attr("y", (d,i) => {
+          return this.y_offset + (this.keyWidth * i) + (this.keyWidth * 0.1);
         })
-        .attr("y", this.y1pos  + (this.axisGap * 0.1))
-        .attr("width", this.keyWidth * 0.8)
-        .attr("height", this.axisGap * 0.8)
+        .attr("width", this.axisGap * 0.8)
+        .attr("height", this.keyWidth * 0.8)
   }
 }
