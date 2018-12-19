@@ -27,4 +27,8 @@ function hideMatchDetail(match){
   barGraph.hideMatchDetail(match)
 }
 
-export {showMatchDetail, hideMatchDetail}
+function arrowclick(arrow){
+  barGraph.sortTeamsBy(arrow);
+}
+
+export {showMatchDetail, hideMatchDetail, arrowclick}

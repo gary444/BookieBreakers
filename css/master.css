@@ -1,32 +1,55 @@
 body {
     background-color: #F9F7F3;
-    font-family: Verdana, Geneva, sans-serif;
+    /* font-family: Verdana, Geneva, sans-serif; */
+    font-family: Poppins,Poppins, sans-serif;
     margin:0;
     /* padding:0; */
+    text-align: center;
 }
 
 h1 {
-  font-size: 7vh;
-  margin:0;
+
+  font-family: Poppins, sans-serif;
+    /* font-family: "Franklin Gothic Medium", "Franklin Gothic", "ITC Franklin Gothic", Arial, sans-serif; */
+  font-size: 10vh;
+  /* margin-left: 20vw; */
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+  /* color: #f00; */
 }
 
 h2 {
-  font-size: 3vh;
+  font-size: 2.5vh;
+  /* margin-left: 20vw; */
+  margin-top: 2vw;
+  margin-bottom: 2vw;
 }
 
 h3 {
+
+  font-family: Verdana Light Italic, Geneva, sans-serif;
+  /* font-family: Poppins Light Italic,Poppins, sans-serif; */
   font-size: 2vh;
-  margin:0;
+  /* margin-left: 20vw; */
 }
 
 #title_strip{
-  text-align: justify; text-align-last: center;
+  /* text-align: justify; text-align-last: right; */
 
 
   height: 24vh;
   width: 100%;
-  background-color: powderblue;
+  /* background-color: powderblue; */
   /* margin:0; */
+}
+
+#separator{
+
+  margin-left: 47vw;
+  height: 1vh;
+  width: 6vw;
+
+  background-color: #76ace2;
 }
 
 line.axis{
@@ -36,17 +59,33 @@ line.axis{
 }
 
 .block_correct{
-  fill:#3C91E6;
+  /* fill:#ffffff; */
 }
 
 .block_wrong{
   fill:#B15E6C;
 }
 
+text.axis_label{
+  /* font-family: "Franklin Gothic Medium", "Franklin Gothic", "ITC Franklin Gothic", Arial, sans-serif; */
+  text-anchor: start;
+  fill: #777;
+  font-size: 2vh;
+
+}
+text.axis_label_left{
+  text-anchor: end;
+}
+
 text.detail_card{
 
-  font-family: Helvetica, Geneva, sans-serif;
+  /* font-family: Helvetica, Geneva, sans-serif; */
   fill: #ffffff;
   font-weight: lighter;
 
+}
+text.detail_card_date{
+  fill: #bbb;
+  font-style: italic;
+  font-size: 1vw;
 }
