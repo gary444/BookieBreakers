@@ -22,9 +22,9 @@ export default class DQBarGraph {
 
 
     let arrow_width  = this.axisGap * 0.5;
-    this.arrows = [{id:0, x:this.x_offset - arrow_width/2 + this.chartwidth * 0.38},
+    this.arrows = [{id:0, x:this.x_offset - arrow_width/2 + this.chartwidth * 0.46},
                   {id:1, x:this.x_offset - arrow_width/2 + this.chartwidth * 0.5, active:true},
-                  {id:2, x:this.x_offset - arrow_width/2 + this.chartwidth * 0.62}]
+                  {id:2, x:this.x_offset - arrow_width/2 + this.chartwidth * 0.54}]
 
     // this.root.append("rect")
     //   .attr("width", this.width)
@@ -323,19 +323,19 @@ export default class DQBarGraph {
       .style("stroke-width", axis_width)
       .classed("axis", true);
 
-    let label_offset = this.width * 0.001;
+    let label_offset = this.width * 0.05;
     let label_height = this.y_offset * 0.7;
     this.changeable.append("text")
       .attr("x", this.y1pos - label_offset)
       .attr("y", label_height)
-      .text("Odds Correct")
+      .text("Matches - Odds Correct")
       .classed("axis_label", true)
       .classed("axis_label_left", true)
 
     this.changeable.append("text")
       .attr("x", this.y2pos + label_offset)
       .attr("y", label_height)
-      .text("Odds Incorrect")
+      .text("Matches - Odds Incorrect")
       .classed("axis_label", true)
 
   }
@@ -360,6 +360,7 @@ export default class DQBarGraph {
 
   renderArrows(){
     let arrow_width  = this.axisGap * 0.5;
+    let arrow_y = this.y_offset * 0.3;
     // let arrows = this.arrows;
 
     this.arrow_group = this.changeable.append("g");
@@ -373,7 +374,7 @@ export default class DQBarGraph {
           return path + ".png";
         })
         .attr("x", (d) => {return d.x;})
-        .attr("y", 0)
+        .attr("y", arrow_y)
         .attr("width", arrow_width)
         .attr("id", (d) => {
           return d.id;

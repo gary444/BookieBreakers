@@ -13,7 +13,8 @@ const bar_graph_height = (window.innerHeight-4) * 0.92;
 const bar_graph_x = (svg_width - bar_graph_width) / 2;
 const bar_graph_y = (svg_height - bar_graph_height) / 2 + (bar_graph_height * 0.001);
 
-let svgContainer = d3.select("body").append("svg")
+// let svgContainer = d3.select("body").append("svg")
+let svgContainer = d3.select("body").insert("svg", "#footer")
   .attr("width", svg_width)
   .attr("height", svg_height)
 let barGraphContainer = svgContainer.append("g")
