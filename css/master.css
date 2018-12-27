@@ -36,13 +36,66 @@ h3 {
 p {
   font-family: Verdana Light Italic, Geneva, sans-serif;
   font-size: 2vh;
-  text-align: right;
+  /* text-align: right; */
   margin-right: 2vw;
+  margin-left: 2vw;
   /* text-decoration: none; */
 }
 a {
   color:black;
 }
+
+
+
+/* Dropdown Button */
+.dropbtn {
+  background-color: #76ace2;
+  color: white;
+  padding: 2vh;
+  font-size: 2vh;
+  border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown button {
+  width: 8vw;
+  font-family: Poppins,Poppins, sans-serif;
+
+  /* margin-bottom: 100px; */
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  text-align: left;
+}
+
+/* Links inside the dropdown */
+.dropdown-content button {
+  color: black;
+  padding: 12px 16px;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content button:hover {
+  background-color: #ddd;
+  font-weight: bold;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #a5c4e2;}
 
 #title_strip{
   /* text-align: justify; text-align-last: right; */
@@ -99,4 +152,35 @@ text.detail_card_date{
   fill: #bbb;
   font-style: italic;
   font-size: 1vw;
+}
+
+#blurbspace{
+  width:20%;
+  height: 10px;
+  float:left;
+  display: inline-block;
+}
+#blurb{
+  width:60%;
+  text-overflow: clip;
+  float:left;
+  display: inline-block;
+}
+
+.footer {
+  width:100%;
+}
+
+#footer_l {
+
+  width:33%;
+  height: auto;
+  margin:0;
+  text-align: left;
+  display: inline-block;
+  float: left;
+
+}
+#footer_l a {
+  text-decoration: none;
 }

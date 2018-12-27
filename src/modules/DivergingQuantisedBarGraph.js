@@ -18,7 +18,7 @@ export default class DQBarGraph {
 
     this.axisGap = this.chartwidth / 30;
     this.y1pos = this.x_offset + (this.chartwidth / 2.0) - (this.axisGap / 2.0);
-    this.y2pos = this.x_offset + (this.chartwidth / 2.0) + (this.axisGap / 2.0);
+    this.y2pos = this.x_offset + (this.chartwidth / 2.0) + (this.axisGap * 0.5);
 
 
     let arrow_width  = this.axisGap * 0.5;
@@ -97,13 +97,13 @@ export default class DQBarGraph {
             .classed("block_correct", true);
 
         //incorrect
-        this.total_width = this.blockGap * 0.1;
+        this.total_width = this.blockGap * 0.5;
         let matchMarks_neg = this.matchMarks.append("g");
         matchMarks_neg.selectAll("rect")
           .data(d.oddsWrong)
           .enter()
           .each( (r) => {
-            r.width = this.blockWidth * r.correct_prob;
+            r.width = this.blockWidth * r.incorrect_prob;
             r.x = this.y2pos + this.total_width + (r.width * 0);
             this.total_width += (r.width * 1);
           })
@@ -128,7 +128,7 @@ export default class DQBarGraph {
             .attr("ry", this.keyWidth * 0.2)
             .on("mouseover", interactions.showMatchDetail)
             .on("mouseout", interactions.hideMatchDetail)
-            .style("fill", (r) => {return colors.getBlockColour((r.correct_prob),false);})
+            .style("fill", (r) => {return colors.getBlockColour((r.incorrect_prob),false);})
             .classed("block_wrong", true);
 
       })
@@ -143,6 +143,8 @@ export default class DQBarGraph {
 
 
   showMatchDetail(match){
+
+    // console.log(match);
 
    let detailCard = this.root.append("g")
      .attr("class", "match_detail");
@@ -237,7 +239,28 @@ export default class DQBarGraph {
    .attr("y1", detailCard_y + (detailCard_h*0.5))
    .attr("x2", detailCard_x + detailCard_w)
    .attr("y2", detailCard_y + (detailCard_h*0.5))
-   .style("stroke", "#ffffff")
+   .style("stroke", "#999")
+   .style("stroke-width", 3)
+
+   //detail line
+   var correct = false;
+   var line_colour = "#af1c2a";
+   var length = detailCard_w * (match.incorrect_prob);
+   if (match.pred === "correct") {
+     line_colour = "#3C91E6";
+     correct = true;
+     length = detailCard_w * match.correct_prob;
+   }
+   var start_pnt = 0;
+   if (match.FTR === "A") {start_pnt = detailCard_w-length;}
+   else if (match.FTR === "D") {start_pnt = (detailCard_w-length) / 2;}
+   detailCard.append("line")
+   .attr("x1", detailCard_x + start_pnt)
+   .attr("y1", detailCard_y + (detailCard_h*0.5))
+   .attr("x2", detailCard_x + start_pnt + length)
+   .attr("y2", detailCard_y + (detailCard_h*0.5))
+   .style("stroke", line_colour)
+   .style("stroke-width", 3)
 
 
 
@@ -298,7 +321,7 @@ export default class DQBarGraph {
    this.teamArray.sort(sortFunctions[function_id]);
    this.render(this.teamArray)
 
-   console.log(this.teamArray);
+   // console.log(this.teamArray);
 
  }
 
@@ -307,21 +330,21 @@ export default class DQBarGraph {
 
     let axis_width = 1;
     //y axis1
-    this.changeable.append("line")
-      .attr("x1", this.y1pos - axis_width)
-      .attr("y1", this.y_offset)
-      .attr("x2", this.y1pos - axis_width)
-      .attr("y2", this.y_offset + this.chartheight)
-      .style("stroke-width", axis_width)
-      .classed("axis", true);
-
-    this.changeable.append("line")
-      .attr("x1", this.y2pos - axis_width)
-      .attr("y1", this.y_offset)
-      .attr("x2", this.y2pos - axis_width)
-      .attr("y2", this.y_offset + this.chartheight)
-      .style("stroke-width", axis_width)
-      .classed("axis", true);
+    // this.changeable.append("line")
+    //   .attr("x1", this.y1pos - axis_width)
+    //   .attr("y1", this.y_offset)
+    //   .attr("x2", this.y1pos - axis_width)
+    //   .attr("y2", this.y_offset + this.chartheight)
+    //   .style("stroke-width", axis_width)
+    //   .classed("axis", true);
+    //
+    // this.changeable.append("line")
+    //   .attr("x1", this.y2pos - axis_width)
+    //   .attr("y1", this.y_offset)
+    //   .attr("x2", this.y2pos - axis_width)
+    //   .attr("y2", this.y_offset + this.chartheight)
+    //   .style("stroke-width", axis_width)
+    //   .classed("axis", true);
 
     let label_offset = this.width * 0.05;
     let label_height = this.y_offset * 0.7;

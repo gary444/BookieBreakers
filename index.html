@@ -4,17 +4,46 @@
     <meta charset="utf-8"/>
     <title>Template D3 project</title>
     <link rel="stylesheet" href="css/master.css">
+
   </head>
   <body>
+
     <div id="title_strip">
       <!-- <h1>BOOKIE BEATERS</h1> -->
       <h1>Bookie Beaters</h1>
       <div id="separator"></div>
       <h2>How often are the bookmakers right? <br>An examination of which teams were predictable and unpredictable</h2>
-      <h3><i>For the English Premier League Season, 2017/18</i></h3>
+      <h3><i>For the English Premier League Season:
+    </i></h3>
+        <span class="dropdown">
+          <button class="dropbtn" id="dropbtn"> 2017/18 </button>
+
+        <div class="dropdown-content">
+          <button id="btn1617">2016/17</button>
+          <button id="btn1718">2017/18</button>
+          <button id="btn1819">2018/19</button>
+        </div>
+      </span>
     </div>
-    <div id="footer">
-      <p>Data from <a href="http://www.football-data.co.uk/englandm.php">Football-Data.co.uk</a></p>
+    <div id="blurbspace"></div>
+    <div id="blurb">
+      <h3><i>
+        This visualisation highlights which Premier League teams have been the most predictable over the course of a season.
+        <br>
+        Individual matches are shown according to whether bookmakers pre-match odds correctly predicted the result.
+        <br>
+        The size of the rectangle for each match corresponds to the predicted probability of a result.
+        <br></h3>
+        <p>Data from <a href="http://www.football-data.co.uk/englandm.php">Football-Data.co.uk</a></p>
+      </i>
+    </div>
+
+
+
+    <div class="footer">
+      <div id="footer_l">
+        <p><a href="https://insight-channel.blogspot.com/">Insight Channel</a></p>
+      </div>
     </div>
     <script src="dist/bundle.js"></script>
   </body>

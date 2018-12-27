@@ -18,6 +18,7 @@ function getBlockColour(value, isCorrect) {
   else {
     if (value > 0.8) {
       return "#af1c2a"
+        // return "#0f0"
     }
     else if (value > 0.5) {
       return "#bc4f59";
